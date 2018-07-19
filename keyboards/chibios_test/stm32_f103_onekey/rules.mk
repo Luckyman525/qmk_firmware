@@ -32,7 +32,7 @@ MCU_STARTUP = stm32f1xx
 #  or <this_dir>/boards
 # Cortex version
 # Teensy LC is cortex-m0; Teensy 3.x are cortex-m4
-MCU  = cortex-m3
+MCU  = cortex-m4
 # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
 ARMV = 7
 # If you want to be able to jump to bootloader from firmware on STM32 MCUs,

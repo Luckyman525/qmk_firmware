@@ -172,7 +172,8 @@ static void unselect_rows(void)
       palSetPadMode(TEENSY_PIN14_IOPORT,TEENSY_PIN14, PAL_MODE_INPUT);
       palSetPadMode(TEENSY_PIN15_IOPORT,TEENSY_PIN15, PAL_MODE_INPUT);
       palSetPadMode(TEENSY_PIN18_IOPORT,TEENSY_PIN18, PAL_MODE_INPUT);
-      palSetPadMode(TEENSY_PIN19_IOPORT,TEENSY_PIN19, PAL_MODE_INPUT);  
+      palSetPadMode(TEENSY_PIN19_IOPORT,TEENSY_PIN19, PAL_MODE_INPUT);
+	  palSetPadMode(TEENSY_PIN20_IOPORT,TEENSY_PIN20, PAL_MODE_INPUT);
 }
 
 static void select_row(uint8_t row)
@@ -196,5 +197,9 @@ static void select_row(uint8_t row)
             palSetPadMode(TEENSY_PIN19_IOPORT, TEENSY_PIN19, PAL_MODE_OUTPUT_PUSHPULL);
             palClearPad(TEENSY_PIN19_IOPORT, TEENSY_PIN19);
             break;        
+		case 4:
+            palSetPadMode(TEENSY_PIN20_IOPORT, TEENSY_PIN20, PAL_MODE_OUTPUT_PUSHPULL);
+            palClearPad(TEENSY_PIN20_IOPORT, TEENSY_PIN20);
+            break;        	
     }
 }

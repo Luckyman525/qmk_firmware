@@ -1,3 +1,3 @@
 # Fordham Foundry
 
-40% ortholinear Teensy LC keyboard
+50% ortholinear Teensy LC keyboard
