@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*   at most 32 characters or the ugly hack in usb_main.c borks */
 #define MANUFACTURER QMK
 #define PRODUCT Preonic
-#define DESCRIPTION QMK keyboard firmware test for handwired preonic
+#define DESCRIPTION QMK keyboard firmware test for a handwired preonic
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -59,12 +59,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
 
+/* RGB backlight config */
+#define RGB_DI_PIN TEENSY_PIN23		/* pin your RGB strip is wired to */
+#define RGBLED_NUM 14 			/* number of LEDs in your strip */
+#define RGBLIGHT_HUE_STEP 64 		/* how many hues you want to have available */
+#define RGBLIGHT_SAT_STEP 64		/* how many steps of saturation you'd like */
+#define RGBLIGHT_VAL_STEP 64		/* the number of levels of brightness you want */
+#define RGBLIGHT_LIMIT_VAL 255		/* Limit the value of HSV to limit the maximum brightness simply */
+#define RGBLIGHT_SLEEP			/* this will shut off the lighting when the host enters sleep mode */
 
-
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
+/* Feature disable options
+*  These options are also useful to firmware size reduction.
+*/
 
 /* disable debug print */
 //#define NO_DEBUG
