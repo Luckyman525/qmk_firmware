@@ -7,6 +7,6 @@ SLEEP_LED_ENABLE = yes		# Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes		# USB Nkey Rollover
 CUSTOM_MATRIX = yes		# Custom matrix file
 #RGBLIGHT_ENABLE = yes		# enable RGB lighting
-#RGB_MATRIX_ENABLE = yes	# enable RGB matrix
+RGB_MATRIX_ENABLE = yes		# enable RGB matrix
 
 DEFAULT_FOLDER = chibios_test/stm32_f103_onekey
