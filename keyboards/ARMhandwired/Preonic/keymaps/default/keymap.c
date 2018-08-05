@@ -16,9 +16,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "preonic.h"
+#include "keymap_steno.h"
 
 enum olkb_layers {
   _COLEMAK,
+  _PLOVER,
   _LOWER,
   _RAISE,
   _ADJUST,
@@ -26,11 +28,17 @@ enum olkb_layers {
 
 enum olkb_keycodes {
   COLEMAK = SAFE_RANGE,
-  BACKLIT  
+  PLOVER,
+  LOWER,
+  RAISE,
+  BACKLIT,
+  EXT_PLV
 };
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
+#define ST_BOLT QK_STENO_BOLT
+#define ST_GEM  QK_STENO_GEMINI
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -56,7 +64,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_LCTL, KC_NUBS, KC_LGUI, KC_LALT, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT}
 },
 
+/* Plover layer (http://opensteno.org)
+ * ,-----------------------------------------------------------------------------------.
+ * | Exit |      |      |      |      |      |      |      |      |      |TXBOLT|GEMiNI|
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |  FN  |   S  |   T  |   P  |   H  |   *  |   *  |   F  |   P  |   L  |   T  |   D  |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |      |   S  |   K  |   W  |   R  |   *  |   *  |   R  |   B  |   G  |   S  |   Z  |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |   U  |   O  |      |      |   E  |   U  |  PWR | RES1 | RES2 |
+ * `-----------------------------------------------------------------------------------'
+ */
 
+[_PLOVER] = {
+  {EXT_PLV, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   ST_BOLT, ST_GEM },
+  {KC_NO,   STN_N1,  STN_N2,  STN_N3,  STN_N4,  STN_N5,  STN_N6,  STN_N7,  STN_N8,  STN_N9,  STN_NA,  STN_NB },
+  {STN_FN,  STN_S1,  STN_TL,  STN_PL,  STN_HL,  STN_ST1, STN_ST3, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR },
+  {KC_NO,   STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2, STN_ST4, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR },
+  {KC_NO,   KC_NO,   KC_NO,   STN_A,   STN_O,   KC_NO,   KC_NO,   STN_E,   STN_U,   STN_PWR, STN_RE1, STN_RE2}
+},
 
 /* Lower
  * ,-----------------------------------------------------------------------------------.
@@ -111,7 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |      |      |      |      |
+ * |      |      |      |      |      |      |      |      |      |PLOVER|      | CMAK |
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = {
@@ -119,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, RESET,   DEBUG,   _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, PLOVER,  COLEMAK}
 }
 
 
@@ -151,7 +179,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         //Do some things
       }
       return false;
-      break;    
+    case PLOVER:
+      if (record->event.pressed) {
+        layer_off(_RAISE);
+        layer_off(_LOWER);
+        layer_off(_ADJUST);
+        layer_on(_PLOVER);
+        if (!eeconfig_is_enabled()) {
+            eeconfig_init();
+        }
+        keymap_config.raw = eeconfig_read_keymap();
+        keymap_config.nkro = 1;
+        eeconfig_update_keymap(keymap_config.raw);
+      }
+      return false;
+      break;
+    case EXT_PLV:
+      if (record->event.pressed) {
+        layer_off(_PLOVER);
+        layer_on(_RAISE);
+	layer_on(_LOWER);
+	layer_on(_ADJUST);
+      }
+      return false;
+      break;
   }
   return true;
 }
