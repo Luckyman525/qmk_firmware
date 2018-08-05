@@ -39,6 +39,7 @@ enum olkb_keycodes {
 #define RAISE MO(_RAISE)
 #define ST_BOLT QK_STENO_BOLT
 #define ST_GEM  QK_STENO_GEMINI
+#define _______ KC_TRNS
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -84,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {STN_FN,  STN_S1,  STN_TL,  STN_PL,  STN_HL,  STN_ST1, STN_ST3, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR },
   {KC_NO,   STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2, STN_ST4, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR },
   {KC_NO,   KC_NO,   KC_NO,   STN_A,   STN_O,   KC_NO,   KC_NO,   STN_E,   STN_U,   STN_PWR, STN_RE1, STN_RE2}
-},
+ },
 
 /* Lower
  * ,-----------------------------------------------------------------------------------.
@@ -148,7 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, PLOVER,  COLEMAK}
-}
+},
 
 
 };
