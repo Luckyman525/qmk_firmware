@@ -16,8 +16,6 @@
  */
 
 #include "ch.h"
-#include "hal.h"
-
 #include "usb_main.h"
 
 /* TMK includes */
@@ -190,6 +188,8 @@ int main(void) {
       /* Woken up */
       // variables has been already cleared by the wakeup hook
       send_keyboard_report();
+#include "hal.h"
+
 #ifdef MOUSEKEY_ENABLE
       mousekey_send();
 #endif /* MOUSEKEY_ENABLE */

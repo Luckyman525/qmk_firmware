@@ -72,6 +72,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *  These options are also useful to firmware size reduction.
 */
 
+#define GRAVE_ESCAPE_CTRL_OVERRIDE
+
 /* disable debug print */
 //#define NO_DEBUG
 
