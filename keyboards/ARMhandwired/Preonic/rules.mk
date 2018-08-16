@@ -1,4 +1,4 @@
-BOOTMAGIC_ENABLE = yes		# Virtual DIP switch configuration
+#BOOTMAGIC_ENABLE = yes		# Virtual DIP switch configuration
 MOUSEKEY_ENABLE = no		# Mouse keys
 EXTRAKEY_ENABLE = no		# Audio control and System control
 AUDIO_ENABLE = no		# Audio output
@@ -11,7 +11,7 @@ CUSTOM_MATRIX = yes		# Custom matrix file
 #RGBLIGHT_ENABLE = yes		# enable RGB lighting
 #RGB_MATRIX_ENABLE = yes	# enable RGB matrix
 STENO_ENABLE = yes		# enable steno support
-TERMINAL_ENABLE = yes		# enable a simple terminal
+#TERMINAL_ENABLE = yes		# enable a simple terminal
 
 
 DEFAULT_FOLDER = chibios_test/stm32_f103_onekey
