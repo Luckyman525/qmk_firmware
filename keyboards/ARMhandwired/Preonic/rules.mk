@@ -1,6 +1,6 @@
-#BOOTMAGIC_ENABLE = yes		# Virtual DIP switch configuration
-MOUSEKEY_ENABLE = no		# Mouse keys
-EXTRAKEY_ENABLE = no		# Audio control and System control
+BOOTMAGIC_ENABLE = yes		# Virtual DIP switch configuration
+MOUSEKEY_ENABLE = yes		# Mouse keys
+EXTRAKEY_ENABLE = yes		# Audio control and System control
 AUDIO_ENABLE = no		# Audio output
 MIDI_ENABLE = no		# MIDI controls
 CONSOLE_ENABLE = yes		# Console for debug
