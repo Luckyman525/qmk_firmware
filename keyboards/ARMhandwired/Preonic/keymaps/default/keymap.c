@@ -22,7 +22,7 @@ enum olkb_layers {
   _COLEMAK,
   _PLOVER,
   _RAISE,
-  _LOWER
+  _LOWER,
   _ADJUST,
 };
 
