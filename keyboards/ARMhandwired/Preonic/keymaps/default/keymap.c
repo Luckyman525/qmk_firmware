@@ -129,9 +129,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = {
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______},
+  {_______, _______, _______, _______, _______, _______, _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC}
+  {_______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END }
 },
 
 /* Raise
@@ -219,7 +219,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	layer_on(_RAISE);
 	layer_on(_LOWER);
 	layer_on(_ADJUST);
-	set_single_persistent_default_layer(_ADJUST);
+	set_single_persistent_default_layer(_COLEMAK);
       }
       return false;
       break;
@@ -231,7 +231,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case EXT_GMG:
       if (record->event.pressed) {
-	set_single_persistent_default_layer(_ADJUST);
+	set_single_persistent_default_layer(_COLEMAK);
       }
   }
   return true;
