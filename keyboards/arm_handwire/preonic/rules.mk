@@ -13,6 +13,7 @@ CUSTOM_MATRIX = yes		# Custom matrix file
 #RGB_MATRIX_ENABLE = yes	# enable RGB matrix
 STENO_ENABLE = yes		# enable steno support
 #TERMINAL_ENABLE = yes		# enable a simple terminal
+UNICODEMAP_ENABLE = yes		# enable custom unicode keymap
 
 
 DEFAULT_FOLDER = chibios_test/stm32_f103_onekey

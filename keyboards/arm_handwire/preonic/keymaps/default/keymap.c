@@ -21,6 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 enum olkb_layers {
   _COLEMAK,
   _PLOVER,
+  _GREEK,
+  _GREEKCAP,
   _RAISE,
   _LOWER,
   _GAMING,
@@ -30,6 +32,8 @@ enum olkb_layers {
 enum olkb_keycodes {
   COLEMAK = SAFE_RANGE,
   PLOVER,
+  GREEK,
+  GREEKCAP,
   LOWER,
   RAISE,
   GAMING,
@@ -37,11 +41,119 @@ enum olkb_keycodes {
   EXT_GMG,
 };
 
+enum unicode_name {
+  ALPHACP,
+  ALPHA,
+  BETACP,
+  BETA,
+  GAMMACP,
+  GAMMA,
+  DELTACP,
+  DELTA,
+  EPSICP,
+  EPSI,
+  ZETACP,
+  ZETA,
+  ETACP,
+  ETA,
+  THETACP,
+  THETA,
+  IOTACP,
+  IOTA,
+  KAPPACP,
+  KAPPA,
+  LAMDACP,
+  LAMDA,
+  MUCP,
+  MU,
+  NUCP,
+  NU,
+  XICP,
+  XI,
+  OMCRNCP,
+  OMCRN,
+  PICP,
+  PI,
+  RHOCP,
+  RHO,
+  SIGMACP,
+  SIGMA,
+  TAUCP,
+  TAU,
+  UPSLNCP,
+  UPSLN,
+  PHICP,
+  PHI,
+  CHICP,
+  CHI,
+  PSICP,
+  PSI,
+  OMEGACP,
+  OMEGA
+};
+
+const uint32_t PROGMEM unicode_map[] = {
+  [ALPHACP]      = 0x0391,	// capital α
+  [ALPHA]        = 0x03B1,	// α
+  [BETACP]       = 0x0392,
+  [BETA]         = 0x03B2,
+  [GAMMACP]      = 0x0393,
+  [GAMMA]        = 0x03B3,
+  [DELTACP]      = 0x0394,
+  [DELTA]        = 0x03B4,
+  [EPSICP]       = 0x0395,
+  [EPSI]         = 0x03B5,
+  [ZETACP]       = 0x0396,
+  [ZETA]         = 0x03B6,
+  [ETACP]        = 0x0397,
+  [ETA]          = 0x03B7,
+  [THETACP]      = 0x0398,
+  [THETA]        = 0x03B8,
+  [IOTACP]       = 0x0399,
+  [IOTA]         = 0x03B9,
+  [KAPPACP]      = 0x039A,
+  [KAPPA]        = 0x03BA,
+  [LAMDACP]      = 0x039B,
+  [LAMDA]        = 0x03BB,
+  [MUCP]         = 0x039C,	// capital μ (mu)
+  [MU]           = 0x00B5,	// µ (micro sign!)
+  [NUCP]         = 0x039D,
+  [NU]           = 0x03BD,
+  [XICP]         = 0x039E,
+  [XI]           = 0x03BE,
+  [OMCRNCP]      = 0x039F,
+  [OMCRN]        = 0x03BF,
+  [PICP]         = 0x03A0,
+  [PI]           = 0x03C0,
+  [RHOCP]        = 0x03A1,
+  [RHO]          = 0x03C1,
+  [SIGMACP]      = 0x03A3,
+  [SIGMA]        = 0x03C3,
+  [TAUCP]        = 0x03A4,
+  [TAU]          = 0x03C4,
+  [UPSLNCP]      = 0x03A5,
+  [UPSLN]        = 0x03C5,
+  [PHICP]        = 0x03A6,
+  [PHI]          = 0x03C6,
+  [CHICP]        = 0x03A7,
+  [CHI]          = 0x03C7,
+  [PSICP]        = 0x03A8,
+  [PSI]          = 0x03C8,
+  [OMEGACP]      = 0x03A9,
+  [OMEGA]        = 0x03C9
+};
+
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 #define ST_BOLT QK_STENO_BOLT
 #define ST_GEM  QK_STENO_GEMINI
 #define CAPLSFT MT(MOD_LSFT, KC_CAPS)
+#define LOWESC LT(_LOWER, KC_ESC)
+#define GRK OSL(_GREEK)
+#define GRKCAP OSL(_GREEKCAP)
+#define SFT MOD_LSFT
+#define CTL MOD_LCTL
+#define GUI MOD_LGUI
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -60,11 +172,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_COLEMAK] = { 
-  {KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL  },
+  {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL  },
   {KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT, KC_NUHS },
   {KC_BSPC, KC_A,    KC_R,    KC_S,    KC_T,    KC_G,    KC_K,    KC_N,    KC_E,    KC_I,    KC_O,    KC_SCLN },
   {KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_M,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC },
-  {KC_LCTL, KC_NUBS, KC_LGUI, KC_LALT, LOWER,   KC_ENT,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT }
+  {KC_LCTL, KC_NUBS, KC_LGUI, KC_LALT, LOWESC,  KC_ENT,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT }
 },
 
 /* Plover layer (http://opensteno.org)
@@ -89,6 +201,47 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_NO,   KC_NO,   KC_NO,   STN_A,   STN_O,   KC_NO,   KC_NO,   STN_E,   STN_U,   STN_PWR, STN_RE1, STN_RE2}
 },
 
+/* Greek
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_GREEK] = {
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+  {_______, THETA,   OMEGA,   PHI,     PI,      BETA,    _______, LAMDA,   UPSLN,   PSI,     _______, _______},
+  {_______, ALPHA,   RHO,     SIGMA,   TAU,     GAMMA,   KAPPA,   NU,      EPSI,    IOTA,    OMCRN,   _______},
+  {_______, ZETA,    XI,      CHI,     DELTA,   _______, MU,      _______, _______, _______, _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+},
+
+/* Greek Capitals
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_GREEKCAP] = {
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+  {_______, THETA,   OMEGA,   PHI,     PI,      BETA,    _______, LAMDA,   UPSLN,   PSI,     _______, _______},
+  {_______, ALPHA,   RHO,     SIGMA,   TAU,     GAMMA,   KAPPA,   NU,      EPSI,    IOTA,    OMCRN,   _______},
+  {_______, ZETA,    XI,      CHI,     DELTA,   _______, MU,      _______, _______, _______, _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+},
 
 /* Gaming
  * ,-----------------------------------------------------------------------------------.
@@ -117,7 +270,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Caps |      |      |      |      |      |      |   -  |   =  |   [  |   ]  |      |
+ * | Caps |      |      |      |      |      |      |   -  |   =  |   [  |   ]  | GRK  |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -128,7 +281,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = {
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-  {KC_CAPS, _______, _______, _______, _______, _______, _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, _______},
+  {KC_CAPS, _______, _______, _______, _______, _______, _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, GRK    },
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PSCR}
 },
@@ -139,7 +292,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Caps |      |      |      |      |      |      | HOME | PGDN | PGUP | END  |      |
+ * | Caps |      |      |      |      |      |      | HOME | PGDN | PGUP | END  |GRKCAP|
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -149,7 +302,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RAISE] = {
   {KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12 },
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-  {KC_CAPS, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______},
+  {KC_CAPS, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  GRKCAP },
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
 },
