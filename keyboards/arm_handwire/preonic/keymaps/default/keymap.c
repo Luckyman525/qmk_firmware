@@ -20,9 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 enum olkb_layers {
   _COLEMAK,
+  _PDVORAK,
   _PLOVER,
-  _GREEK,
-  _GREEKCAP,
+  _UNICODE,
   _RAISE,
   _LOWER,
   _GAMING,
@@ -31,9 +31,11 @@ enum olkb_layers {
 
 enum olkb_keycodes {
   COLEMAK = SAFE_RANGE,
+  PDVORAK,
+  TFLIP,
+  LENNY,
   PLOVER,
-  GREEK,
-  GREEKCAP,
+  UNICODE,
   LOWER,
   RAISE,
   GAMING,
@@ -41,119 +43,38 @@ enum olkb_keycodes {
   EXT_GMG,
 };
 
-enum unicode_name {
-  ALPHACP,
-  ALPHA,
-  BETACP,
-  BETA,
-  GAMMACP,
-  GAMMA,
-  DELTACP,
-  DELTA,
-  EPSICP,
-  EPSI,
-  ZETACP,
-  ZETA,
-  ETACP,
-  ETA,
-  THETACP,
-  THETA,
-  IOTACP,
-  IOTA,
-  KAPPACP,
-  KAPPA,
-  LAMDACP,
-  LAMDA,
-  MUCP,
-  MU,
-  NUCP,
-  NU,
-  XICP,
-  XI,
-  OMCRNCP,
-  OMCRN,
-  PICP,
-  PI,
-  RHOCP,
-  RHO,
-  SIGMACP,
-  SIGMA,
-  TAUCP,
-  TAU,
-  UPSLNCP,
-  UPSLN,
-  PHICP,
-  PHI,
-  CHICP,
-  CHI,
-  PSICP,
-  PSI,
-  OMEGACP,
-  OMEGA
+enum unicode_names {
+  SNEK,
+  VOL,
 };
 
 const uint32_t PROGMEM unicode_map[] = {
-  [ALPHACP]      = 0x0391,	// capital α
-  [ALPHA]        = 0x03B1,	// α
-  [BETACP]       = 0x0392,
-  [BETA]         = 0x03B2,
-  [GAMMACP]      = 0x0393,
-  [GAMMA]        = 0x03B3,
-  [DELTACP]      = 0x0394,
-  [DELTA]        = 0x03B4,
-  [EPSICP]       = 0x0395,
-  [EPSI]         = 0x03B5,
-  [ZETACP]       = 0x0396,
-  [ZETA]         = 0x03B6,
-  [ETACP]        = 0x0397,
-  [ETA]          = 0x03B7,
-  [THETACP]      = 0x0398,
-  [THETA]        = 0x03B8,
-  [IOTACP]       = 0x0399,
-  [IOTA]         = 0x03B9,
-  [KAPPACP]      = 0x039A,
-  [KAPPA]        = 0x03BA,
-  [LAMDACP]      = 0x039B,
-  [LAMDA]        = 0x03BB,
-  [MUCP]         = 0x039C,	// capital μ (mu)
-  [MU]           = 0x00B5,	// µ (micro sign!)
-  [NUCP]         = 0x039D,
-  [NU]           = 0x03BD,
-  [XICP]         = 0x039E,
-  [XI]           = 0x03BE,
-  [OMCRNCP]      = 0x039F,
-  [OMCRN]        = 0x03BF,
-  [PICP]         = 0x03A0,
-  [PI]           = 0x03C0,
-  [RHOCP]        = 0x03A1,
-  [RHO]          = 0x03C1,
-  [SIGMACP]      = 0x03A3,
-  [SIGMA]        = 0x03C3,
-  [TAUCP]        = 0x03A4,
-  [TAU]          = 0x03C4,
-  [UPSLNCP]      = 0x03A5,
-  [UPSLN]        = 0x03C5,
-  [PHICP]        = 0x03A6,
-  [PHI]          = 0x03C6,
-  [CHICP]        = 0x03A7,
-  [CHI]          = 0x03C7,
-  [PSICP]        = 0x03A8,
-  [PSI]          = 0x03C8,
-  [OMEGACP]      = 0x03A9,
-  [OMEGA]        = 0x03C9
+  [SNEK] = 0x1F40D,
+  [VOL]  = 0x1F50A,
 };
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 #define ST_BOLT QK_STENO_BOLT
 #define ST_GEM  QK_STENO_GEMINI
-#define CAPLSFT MT(MOD_LSFT, KC_CAPS)
 #define LOWESC LT(_LOWER, KC_ESC)
-#define GRK OSL(_GREEK)
-#define GRKCAP OSL(_GREEKCAP)
+#define ENTALT MT(MOD_LALT, KC_ENT)
+#define UNICODE MO(_UNICODE)
+#define UCODE OSL(_UNICODE)
 #define SFT MOD_LSFT
 #define CTL MOD_LCTL
 #define GUI MOD_LGUI
+#define POUND LSFT(KC_3)
+#define WSPC1 RGUI(KC_1)
+#define WSPC2 RGUI(KC_2)
+#define WSPC3 RGUI(KC_3)
+#define WSPC4 RGUI(KC_4)
+#define WSPC5 RGUI(KC_5)
+#define WSPC6 RGUI(KC_6)
+#define WSPC7 RGUI(KC_7)
+#define WSPC8 RGUI(KC_8)
+#define WSPC9 RGUI(KC_9)
+#define WSPC0 RGUI(KC_0)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -168,16 +89,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   D  |   V  |   M  |   H  |   ,  |   .  |   /  | Shift|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl |   \  |  GUI |  ALT |Lower | Enter| Space| Raise| Left | Down |  Up  | Right|
+ * | Ctrl |   \  | UCODE|  GUI |Lower | Enter| Space| Raise| Left | Down |  Up  | Right|
  * `-----------------------------------------------------------------------------------'
  */
-[_COLEMAK] = { 
+[_COLEMAK] = {
   {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL  },
   {KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT, KC_NUHS },
   {KC_BSPC, KC_A,    KC_R,    KC_S,    KC_T,    KC_G,    KC_K,    KC_N,    KC_E,    KC_I,    KC_O,    KC_SCLN },
   {KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_M,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC },
-  {KC_LCTL, KC_NUBS, KC_LGUI, KC_LALT, LOWESC,  KC_ENT,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT }
+  {KC_LCTL, KC_NUBS, UNICODE, KC_RGUI, LOWESC,  ENTALT,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT }
 },
+
+/* Programmer's Dvorak
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |-----------------------------------------------------------------------------------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |-----------------------------------------------------------------------------------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |-----------------------------------------------------------------------------------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |-----------------------------------------------------------------------------------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
 
 /* Plover layer (http://opensteno.org)
  * ,-----------------------------------------------------------------------------------.
@@ -201,9 +136,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_NO,   KC_NO,   KC_NO,   STN_A,   STN_O,   KC_NO,   KC_NO,   STN_E,   STN_U,   STN_PWR, STN_RE1, STN_RE2}
 },
 
-/* Greek
+/* UNICODE
  * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * | SNEK | TFLIP| LENNY|      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -214,33 +149,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_GREEK] = {
+[_UNICODE] = {
+  {X(SNEK), TFLIP,   LENNY,   X(VOL), _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-  {_______, THETA,   OMEGA,   PHI,     PI,      BETA,    _______, LAMDA,   UPSLN,   PSI,     _______, _______},
-  {_______, ALPHA,   RHO,     SIGMA,   TAU,     GAMMA,   KAPPA,   NU,      EPSI,    IOTA,    OMCRN,   _______},
-  {_______, ZETA,    XI,      CHI,     DELTA,   _______, MU,      _______, _______, _______, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
-},
-
-/* Greek Capitals
- * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |      |      |      |      |      |      |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
- * `-----------------------------------------------------------------------------------'
- */
-[_GREEKCAP] = {
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-  {_______, THETA,   OMEGA,   PHI,     PI,      BETA,    _______, LAMDA,   UPSLN,   PSI,     _______, _______},
-  {_______, ALPHA,   RHO,     SIGMA,   TAU,     GAMMA,   KAPPA,   NU,      EPSI,    IOTA,    OMCRN,   _______},
-  {_______, ZETA,    XI,      CHI,     DELTA,   _______, MU,      _______, _______, _______, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+  {_______, _______, _______, _______, _______, UC_M_WC, UC_M_LN, _______, _______, _______, _______, _______}
 },
 
 /* Gaming
@@ -253,36 +167,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | CTRL |   -  |   =  | Alt  |       Space        |   #  | Left | Down |  Up  |Right |
+ * | CTRL |   -  |   =  | Alt  |    Space    | UCODE|   #  | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
 
-[_GAMING] = {  
+[_GAMING] = {
   {KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    EXT_GMG},
   {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_DEL },
   {KC_BSPC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
-  {CAPLSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-  {KC_LCTL, KC_MINS, KC_EQL,  KC_LALT, KC_SPC,  KC_SPC,  KC_SPC,  KC_NUHS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
+  {KC_LCTL, KC_MINS, KC_EQL,  KC_LALT, KC_SPC,  KC_SPC,  UCODE,   KC_NUHS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 /* Lower
  * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |      |      |      |      |      |      |      |      |      |      |      |TrmON |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |      | WSPC1| WSPC2| WSPC3| WSPC4| WSPC5| WSPC6| WSPC7| WSPC8| WSPC9| WSPC0|TrmOff|
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Caps |      |      |      |      |      |      |   -  |   =  |   [  |   ]  | GRK  |
+ * | Caps | HOME | PGDN | PGUP | END  |      |      |   -  |   =  |   [  |   ]  |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |      |      |      |      |      |      |      |      |      |      |      |UCODE |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |PrtScr|
  * `-----------------------------------------------------------------------------------'
- */	
+ */
 
 [_LOWER] = {
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-  {KC_CAPS, _______, _______, _______, _______, _______, _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, GRK    },
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, TERM_ON},
+  {_______, WSPC1,   WSPC2,   WSPC3,   WSPC4,   WSPC5,   WSPC6,   WSPC7,   WSPC8,   WSPC9,   WSPC0,   TERM_OFF},
+  {KC_CAPS, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, UCODE  },
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PSCR}
 },
 
@@ -292,22 +206,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Caps |      |      |      |      |      |      | HOME | PGDN | PGUP | END  |GRKCAP|
+ * | Caps |   !  |   "  |   £  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      | Next | Vol- | Vol+ | Play |
+ * |      |      |      | AltGr|      |SuperL|      |      | Next | Vol- | Vol+ | Play |
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = {
   {KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12 },
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-  {KC_CAPS, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  GRKCAP },
+  {KC_CAPS, KC_EXLM, KC_AT,   POUND,   KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
+  {_______, _______, _______, KC_ALGR, _______, KC_LGUI, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
 },
 
-  
+
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      |      |      |      |      |      |
@@ -385,6 +299,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
 	set_single_persistent_default_layer(_COLEMAK);
       }
+    case TFLIP:
+      if (record->event.pressed) {
+        //when keycode TFLIP is pressed
+        send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B");
+        } else {
+        //when keycode TFLIP is released
+      }
+      break;
+    case LENNY:
+      if (record->event.pressed) {
+        //when keycode TFLIP is pressed
+        send_unicode_hex_string("0028 0020 0361 00B0 035C 0296 0020 0361 00B0 0029");
+        } else {
+        //when keycode TFLIP is released
+      }
+      break;
   }
   return true;
 };

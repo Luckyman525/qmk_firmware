@@ -87,4 +87,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define GRAVE_ESC_CTRL_OVERRIDE
 #define FORCE_NKRO
 
+#define UNICODE_WINC_KEY KC_LALT
+
 #endif
