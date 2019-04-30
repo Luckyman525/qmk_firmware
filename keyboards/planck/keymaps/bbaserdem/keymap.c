@@ -9,20 +9,21 @@
 #include "planck.h"
 #include "bbaserdem.h"
 
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Main Dvorak layer
-    [_DV] = LAYOUT_planck_wrapper(DVORAK),
+    [_DV] = DVORAK,
     // Turkish and special character overlay
-    [_AL] = LAYOUT_planck_wrapper(ALTCHAR),
+    [_AL] = ALTCHAR,
     // Gaming layer
-    [_GA] = LAYOUT_planck_wrapper(GAME),
+    [_GA] = GAME,
     // Numbers layer
-    [_NU] = LAYOUT_planck_wrapper(NUMBERS),
+    [_NU] = NUMBERS,
     // Settings layer
-    [_SE] = LAYOUT_planck_wrapper(SETTINGS),
+    [_SE] = SETTINGS,
     // Mouse emulation layer
-    [_MO] = LAYOUT_planck_wrapper(MOUSE),
+    [_MO] = MOUSE,
+#ifdef MUSIC_ENABLE
     // Music mode
-    [_MU] = LAYOUT_planck_wrapper(MUSIC),
+    [_MU] = MUSIC,
+#endif
 };

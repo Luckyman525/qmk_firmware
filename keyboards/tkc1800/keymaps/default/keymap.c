@@ -34,8 +34,6 @@ enum {
 	FUNCTION,
 };
 
-bool screenWorks = 0;
-
 //13 characters max without re-writing the "Layer: " format in iota_gfx_task_user()
 static char layer_lookup[][14] = {"Base","Function"};
 
@@ -95,9 +93,7 @@ void matrix_init_user(void) {
   // calls code for the SSD1306 OLED
         _delay_ms(400);
         TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 800000));
-        if(iota_gfx_init()){ // turns on the display
-			screenWorks = 1;
-		}
+        iota_gfx_init();   // turns on the display
   #endif
   #endif
     #ifdef AUDIO_ENABLE
@@ -107,9 +103,7 @@ void matrix_init_user(void) {
 
 void matrix_scan_user(void) {
     #ifdef SSD1306OLED
-     if(screenWorks){
-	 iota_gfx_task();  // this is what updates the display continuously
-	 };
+     iota_gfx_task();  // this is what updates the display continuously
     #endif
 }
 

@@ -46,7 +46,7 @@ Mac mode swap Alt/Win(GUI) key.
 | ---- | ---- | --- |
 |on/off|Adjust + e(Qwerty)|RGB_TOG|
 |      |Adjust + i(Qwerty)|       |
-|change mode|Adjust + d(Qwerty) |RGB_MOD|
+|change mode|Adjust + d(Qwerty) |RGB_SMOD|
 |           |Adjust + k(Qwerty)|       |
 |HUE +|Adjust + Left Control|RGB_HUI|
 |     |Adjust + Right Control|       |

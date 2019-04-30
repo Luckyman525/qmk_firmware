@@ -120,14 +120,6 @@ static inline bool has_ghost_in_row(uint8_t row, matrix_row_t rowdata)
 
 #endif
 
-void disable_jtag(void) {
-// To use PORTF disable JTAG with writing JTD bit twice within four cycles.
-#if (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || defined(__AVR_ATmega32U4__))
-    MCUCR |= _BV(JTD);
-    MCUCR |= _BV(JTD);
-#endif
-}
-
 /** \brief matrix_setup
  *
  * FIXME: needs doc
@@ -141,7 +133,6 @@ void matrix_setup(void) {
  * FIXME: needs doc
  */
 void keyboard_setup(void) {
-    disable_jtag();
     matrix_setup();
 }
 
@@ -160,6 +151,11 @@ bool is_keyboard_master(void) {
  */
 void keyboard_init(void) {
     timer_init();
+// To use PORTF disable JTAG with writing JTD bit twice within four cycles.
+#if  (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || defined(__AVR_ATmega32U4__))
+  MCUCR |= _BV(JTD);
+  MCUCR |= _BV(JTD);
+#endif
     matrix_init();
 #ifdef PS2_MOUSE_ENABLE
     ps2_mouse_init();

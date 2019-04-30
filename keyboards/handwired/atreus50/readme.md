@@ -1,9 +1,7 @@
-# Handwired Atreus50
+Handwired Atreus50
+==================
 
-This firmware is for a handwired Atreus50 using an Arduino Pro Micro.
-
-Keyboard Maintainer: [The QMK Community](https://github.com/qmk)  
-Hardware Supported: Arduino Pro Micro  
+This firmware is for a Handwired Atreus50 using an Arduino Pro Micro.
 
 ## Pinout
 
@@ -13,12 +11,6 @@ The following pins are used:
 
 ## Compiling and loading the firmware
 
-Make example for this keyboard (after setting up your build environment):
+To build the firmware, run `make`.
 
-    make handwired/atreus50:default
-
-To flash the firmware onto the microcontroller, run `make avrdude`, and press the reset button.
-
-    make handwired/atreus50:default:avrdude
-
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+To flash the firemware onto the microcontroller, run `make avrdude`, and press the reset button.

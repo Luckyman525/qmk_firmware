@@ -269,7 +269,6 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 };
 
 
-__attribute__ ((weak))
 const rgb_led g_rgb_leds[DRIVER_LED_TOTAL] = {
 
     /*{row | col << 4}

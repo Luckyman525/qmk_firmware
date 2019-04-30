@@ -6,8 +6,7 @@ host of the [MechMerlin](www.youtube.com/mechmerlin) YouTube channel.
 
 It is used on his   
 [Sentraq S60-X RGB](https://github.com/qmk/qmk_firmware/tree/master/keyboards/s60_x)   
-[Zeal60 Rev4](https://github.com/qmk/qmk_firmware/tree/master/keyboards/zeal60)  
-[DO60](https://github.com/qmk/qmk_firmware/tree/master/keyboards/do60)   
+[MechanicalKeyboards.com FaceW](https://github.com/qmk/qmk_firmware/tree/master/keyboards/bfake)   
 
 ## Keymap Notes
 - Highly influenced by the KBP V60 and WKL B.Face standard layouts

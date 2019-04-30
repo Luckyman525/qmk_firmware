@@ -1,4 +1,6 @@
 #include QMK_KEYBOARD_H
+#include "debug.h"
+#include "action_layer.h"
 #include "version.h"
 
 #define BASE 0 // default layer
@@ -6,7 +8,8 @@
 #define MDIA 2 // media keys
 
 enum custom_keycodes {
-  EPRM = SAFE_RANGE,
+  PLACEHOLDER = SAFE_RANGE, // can always be here
+  EPRM,
   VRSN,
   RGB_SLD
 };
@@ -144,21 +147,47 @@ const uint16_t PROGMEM fn_actions[] = {
     [1] = ACTION_LAYER_TAP_TOGGLE(SYMB)                // FN1 - Momentary Layer 1 (Symbols)
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    switch (keycode) {
-      case EPRM:
-        eeconfig_init();
-        return false;
-      case VRSN:
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
+{
+  // MACRODOWN only works in this function
+  switch(id) {
+    case 0:
+      if (record->event.pressed) {
         SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-        return false;
-      #ifdef RGBLIGHT_ENABLE
-      case RGB_SLD:
-        rgblight_mode(1);
-        return false;
-      #endif
-    }
+      }
+      break;
+    case 1:
+      if (record->event.pressed) { // For resetting EEPROM
+        eeconfig_init();
+      }
+      break;
+  }
+  return MACRO_NONE;
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    // dynamically generate these.
+    case EPRM:
+      if (record->event.pressed) {
+        eeconfig_init();
+      }
+      return false;
+      break;
+    case VRSN:
+      if (record->event.pressed) {
+        SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+      }
+      return false;
+      break;
+    case RGB_SLD:
+      if (record->event.pressed) {
+        #ifdef RGBLIGHT_ENABLE
+          rgblight_mode(1);
+        #endif
+      }
+      return false;
+      break;
   }
   return true;
 }
@@ -168,6 +197,11 @@ void matrix_init_user(void) {
 #ifdef RGBLIGHT_COLOR_LAYER_0
   rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
 #endif
+};
+
+// Runs constantly in the background, in a loop.
+void matrix_scan_user(void) {
+
 };
 
 // Runs whenever there is a layer state change.
@@ -232,7 +266,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         ergodox_right_led_2_on();
         ergodox_right_led_3_on();
         #ifdef RGBLIGHT_COLOR_LAYER_7
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_7);
+          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_6);
         #endif
         break;
       default:

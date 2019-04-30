@@ -363,9 +363,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+// Runs just one time when the keyboard initializes.
+void matrix_init_user(void) {
+
+};
+
+
 // Runs constantly in the background, in a loop.
-void matrix_scan_user_keyboard(void) {
+void matrix_scan_user(void) {
     ergodox_board_led_on();
     ergodox_led_all_on();
-}
+};
 

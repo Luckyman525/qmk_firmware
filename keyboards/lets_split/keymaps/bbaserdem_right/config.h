@@ -1,5 +1,5 @@
-#ifndef CONFIG_KEYMAP_H
-#define CONFIG_KEYMAP_H
+#ifndef CONFIG_USER_H
+#define CONFIG_USER_H
 
 #include "../../config.h"
 

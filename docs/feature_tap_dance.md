@@ -26,8 +26,6 @@ This array specifies what actions shall be taken when a tap-dance key is in acti
 
 The first option is enough for a lot of cases, that just want dual roles. For example, `ACTION_TAP_DANCE_DOUBLE(KC_SPC, KC_ENT)` will result in `Space` being sent on single-tap, `Enter` otherwise.
 
-!> Keep in mind that only [basic keycodes](keycodes_basic.md) are supported here. Custom keycodes are not supported.
-
 And that's the bulk of it!
 
 And now, on to the explanation of how it works!
@@ -198,20 +196,22 @@ SRC += your_name.c
 Pretty simple. It is a nice way to keep some rules common on all your keymaps.
 
 
-### In `/qmk_firmware/users/<your_name>/<your_name>.h`
+### In `/qmk_firmware/users/<your_name>/<you_name>.h`
 
 You will need a few things in this file:
 
 ```c
-#pragma once
+#ifndef YOUR_NAME
+#define YOUR_NAME
 
 #include "quantum.h"
 #include "process_keycode/process_tap_dance.h"
 
+
 typedef struct {
   bool is_press_action;
   int state;
-} tap;
+} xtap;
 
 enum {
   SINGLE_TAP = 1,
@@ -225,9 +225,9 @@ enum {
 
 //Tap dance enums
 enum {
-  X_CTL = 0,
-  SOME_OTHER_DANCE
-};
+    CTL_X = 0,
+    SOME_OTHER_DANCE
+}
 
 int cur_dance (qk_tap_dance_state_t *state);
 
@@ -241,7 +241,7 @@ void x_reset (qk_tap_dance_state_t *state, void *user_data);
 And then in your user's `.c` file you implement the functions above:
 
 ```c
-#include "<your_name>.h"
+#include "gordon.h"
 #include "quantum.h"
 #include "action.h"
 #include "process_keycode/process_tap_dance.h"
@@ -335,4 +335,4 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 ```
 
-And then simply use `TD(X_CTL)` anywhere in your keymap after including `<your_name>.h`.
+And then simply use TD(X_CTL) anywhere in your keymap.

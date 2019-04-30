@@ -15,22 +15,21 @@ My build used the following components:
 
 ```
 ,-----------------------------------------------------------------------------------------.
-|  `  | 1   | 2   | 3   | 4   | 5   | 6   | 7   | 8   | 9   | 0   | -   | =   | Backspace |
+| Esc | 1   | 2   | 3   | 4   | 5   | 6   | 7   | 8   | 9   | 0   | -   | =   | Backspace |
 |-----------------------------------------------------------------------------------------+
 | Tab    | Q   | W   | E   | R   | T   | Y   | U   | I   | O   | P   | [   | ]   |   \    |
 |-----------------------------------------------------------------------------------------+
-| _FL/Esc  | A   | S   | D   | F   | G   | H   | J   | K   | L   | ;   | '   | Enter      |
+| _FL      | A   | S   | D   | F   | G   | H   | J   | K   | L   | ;   | '   | Enter      |
 |-----------------------------------------------------------------------------------------+
-| Shift     | Z   | X   | C   | V   | B   | N   | M   | ,   | .   | /   |     | Up  |Shift|
+| Shift     | Z   | X   | C   | V   | B   | N   | M   | ,   | .   | /   | _ML | Up  |Shift|
 |-----------------------------------------------------------------------------------------+
-| Ctrl | Alt  | Cmd  |            _NL / Space             |Cmd/_ML| Alt | Left| Down|Right|
+| Ctrl | Alt  | Cmd  |                Space               |Cmd/_ML| Alt | Left| Down|Right|
 `-----------------------------------------------------------------------------------------'
 ```
 
-* The escape key is moved to the capslock to get keep grave letter pristine.
-* The `Caps-Lock` (`Hyper`) key switch to the function layer (`_FL`) or escape when used alone.
-* The right `Cmd` key is used to switch to the media layer (`_ML`) when used with keys mapped on that layer.
-* The space key can be used to switch to the numpad layer (`_NL`) when used with one of the mapped key on that layer.
+* The escape key use `KC_GESC` to get grave accent on any letter with ``Alt+Esc`` and `` ` `` alone with the ``Hyper+Esc``. The `~` is obtained with `Shift+Esc`. `GRAVE_ESC_GUI_OVERRIDE` is define so `Cmd+Alt+Esc` can still work.
+* The `Caps-Lock` (`Hyper`) key switch to the function layer (`_FL`).
+* The right `Cmd` key is used to switch to the media layer (`_ML`) when used with keys mapped on that layer (the top row). Any other keys just act as a `Cmd+` that key.
 
 ## Function Layer (_FL)
 
@@ -38,9 +37,9 @@ My build used the following components:
 ,-----------------------------------------------------------------------------------------.
 |  `  | F1  | F2  | F3  | F4  | F5  | F6  | F7  | F8  | F9  | F10 | F11 | F12 |    Del    |
 |-----------------------------------------------------------------------------------------+
-|        |     |     |     |     |     |     |PgDwn| PgUp|     |     |     |     |        |
+|        |     |     |     |     |     |     |     | UP  |     |     |     |     |  Reset |
 |-----------------------------------------------------------------------------------------+
-|          |     |     |     |     |     | Left| Down| Up  |Right|     |     |            |
+|          |     |     |     |     |     |     | Left| Down|Right|     |     |            |
 |-----------------------------------------------------------------------------------------+
 |           |     |     |     |     |     |     |     |     |     |     |     |     |     |
 |-----------------------------------------------------------------------------------------+
@@ -48,15 +47,15 @@ My build used the following components:
 `-----------------------------------------------------------------------------------------'
 ```
 
-The function layer is activated by the `Caps-Lock` (`Hyper`) key to access `F` keys. In addition, the `HJKL` are mapped as cursor keys on that layer.
+The function layer is activated by the `Caps-Lock` (`Hyper`) key to access `F` keys. In addition, the `IJKL` are mapped as cursor keys on that layer.
 
 ## Media Layer (_ML)
 
 ```
 ,-----------------------------------------------------------------------------------------.
-|Eject| BR- | BR+ |     |     |     |     |PREV |PLAY |NEXT |MUTE | V- | V+ |             |
+|     | BR- | BR+ | F3  | F4  |     |     |PREV |PLAY |NEXT |MUTE | V- | V+ |    Eject    |
 |-----------------------------------------------------------------------------------------+
-|        |     |     |     |     |     |     |     |     |     |     |     |     |  Reset |
+|        |     |     |     |     |     |     |     |     |     |     |     |     |        |
 |-----------------------------------------------------------------------------------------+
 |          |     |     |     |     |     |     |     |     |     |     |     |            |
 |-----------------------------------------------------------------------------------------+
@@ -68,20 +67,4 @@ The function layer is activated by the `Caps-Lock` (`Hyper`) key to access `F` k
 
 The media layer is activated by the right `Cmd` (`FN`) key. It contains the typical macos media keys on the top row. Blank keys act as `Cmd+` that key on the base layer.
 
-## Numpad Layer (_NL)
 
-```
-,-----------------------------------------------------------------------------------------.
-|     |     |     |     |     |     |     |     |  %  |  (  |  )  |  < |  > |             |
-|-----------------------------------------------------------------------------------------+
-|        |     |     |     |     |     |     |  *  |  0  |  1  |  2  |  3  |     |        |
-|-----------------------------------------------------------------------------------------+
-|          |     |     |     |     |     |     |  .  |  -  |  4  |  5  |  6  |            |
-|-----------------------------------------------------------------------------------------+
-|           |     |     |     |     |     |     |  ,  |  =  |  7  |  8  |  9  |     |     |
-|-----------------------------------------------------------------------------------------+
-|      |      |      |                                      |     |     |     |     |     |
-`-----------------------------------------------------------------------------------------'
-```
-
-The numpad layer is activated by the space bar, when hold.

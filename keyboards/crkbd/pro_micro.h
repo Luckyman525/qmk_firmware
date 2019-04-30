@@ -21,7 +21,9 @@
 
   $Id: wiring.h 249 2007-02-03 16:52:51Z mellis $
 */
-#pragma once
+
+#ifndef Pins_Arduino_h
+#define Pins_Arduino_h
 
 #include <avr/pgmspace.h>
 
@@ -356,3 +358,5 @@ const uint8_t PROGMEM analog_pin_to_channel_PGM[] = {
 #define SERIAL_PORT_USBVIRTUAL     Serial
 #define SERIAL_PORT_HARDWARE       Serial1
 #define SERIAL_PORT_HARDWARE_OPEN  Serial1
+
+#endif /* Pins_Arduino_h */

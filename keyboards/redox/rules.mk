@@ -1,3 +1,8 @@
+SRC += matrix.c \
+	   i2c.c \
+	   split_util.c \
+	   serial.c
+
 # MCU name
 #MCU = at90usb1286
 MCU = atmega32u4
@@ -66,8 +71,10 @@ UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
-RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight. 
+RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
+SUBPROJECT_rev1 = yes
+USE_I2C = yes
 
-SPLIT_KEYBOARD = yes
+CUSTOM_MATRIX = yes
 
 DEFAULT_FOLDER = redox/rev1

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef REV1_H
+#define REV1_H
 
 #include "nyquist.h"
 
@@ -63,3 +64,5 @@
 #endif
 
 #define LAYOUT_ortho_5x12 LAYOUT
+
+#endif

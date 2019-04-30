@@ -3,6 +3,8 @@
 
 #include "../../config.h"
 
+#define PREVENT_STUCK_MODIFIERS
+
 #undef MATRIX_ROW_PINS
 #undef MATRIX_COL_PINS
 
