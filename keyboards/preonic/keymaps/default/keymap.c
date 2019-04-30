@@ -15,6 +15,7 @@
  */
 
 #include QMK_KEYBOARD_H
+#include "muse.h"
 
 enum preonic_layers {
   _QWERTY,
@@ -156,7 +157,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = LAYOUT_preonic_grid( \
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  \
-  _______, RESET,   DEBUG,   _______, _______, _______, _______, TERM_ON, TERM_OFF,_______, _______, KC_DEL,  \
+  _______, RESET,   DEBUG,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL,  \
   _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  _______, _______, \
   _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  \
@@ -211,13 +212,96 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             #ifdef BACKLIGHT_ENABLE
               backlight_step();
             #endif
+            #ifdef __AVR__
             PORTE &= ~(1<<6);
+            #endif
           } else {
             unregister_code(KC_RSFT);
+            #ifdef __AVR__
             PORTE |= (1<<6);
+            #endif
           }
           return false;
           break;
       }
     return true;
 };
+
+bool muse_mode = false;
+uint8_t last_muse_note = 0;
+uint16_t muse_counter = 0;
+uint8_t muse_offset = 70;
+uint16_t muse_tempo = 50;
+
+void encoder_update(bool clockwise) {
+  if (muse_mode) {
+    if (IS_LAYER_ON(_RAISE)) {
+      if (clockwise) {
+        muse_offset++;
+      } else {
+        muse_offset--;
+      }
+    } else {
+      if (clockwise) {
+        muse_tempo+=1;
+      } else {
+        muse_tempo-=1;
+      }
+    }
+  } else {
+    if (clockwise) {
+      register_code(KC_PGDN);
+      unregister_code(KC_PGDN);
+    } else {
+      register_code(KC_PGUP);
+      unregister_code(KC_PGUP);
+    }
+  }
+}
+
+void dip_update(uint8_t index, bool active) {
+  switch (index) {
+    case 0:
+      if (active) {
+        layer_on(_ADJUST);
+      } else {
+        layer_off(_ADJUST);
+      }
+      break;
+    case 1:
+      if (active) {
+        muse_mode = true;
+      } else {
+        muse_mode = false;
+        #ifdef AUDIO_ENABLE
+          stop_all_notes();
+        #endif
+      }
+   }
+}
+
+void matrix_scan_user(void) {
+  #ifdef AUDIO_ENABLE
+    if (muse_mode) {
+      if (muse_counter == 0) {
+        uint8_t muse_note = muse_offset + SCALE[muse_clock_pulse()];
+        if (muse_note != last_muse_note) {
+          stop_note(compute_freq_for_midi_note(last_muse_note));
+          play_note(compute_freq_for_midi_note(muse_note), 0xF);
+          last_muse_note = muse_note;
+        }
+      }
+      muse_counter = (muse_counter + 1) % muse_tempo;
+    }
+  #endif
+}
+
+bool music_mask_user(uint16_t keycode) {
+  switch (keycode) {
+    case RAISE:
+    case LOWER:
+      return false;
+    default:
+      return true;
+  }
+}
