@@ -61,6 +61,9 @@ const uint32_t PROGMEM unicode_map[] = {
 #define ENTALT MT(MOD_LALT, KC_ENT)
 #define UNICODE MO(_UNICODE)
 #define UCODE OSL(_UNICODE)
+#define ADJ DF()_ADJUST)
+#define GAMING DF(_GAMING)
+#define PLOVER DF(_PLOVER)
 #define SFT MOD_LSFT
 #define CTL MOD_LCTL
 #define GUI MOD_LGUI
@@ -129,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_PLOVER] = {
-  {EXT_PLV, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   ST_BOLT, ST_GEM },
+  {ADJ,     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   ST_BOLT, ST_GEM },
   {KC_NO,   STN_N1,  STN_N2,  STN_N3,  STN_N4,  STN_N5,  STN_N6,  STN_N7,  STN_N8,  STN_N9,  STN_NA,  STN_NB },
   {STN_FN,  STN_S1,  STN_TL,  STN_PL,  STN_HL,  STN_ST1, STN_ST3, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR },
   {KC_NO,   STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2, STN_ST4, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR },
@@ -159,7 +162,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* GAMING
  * ,-----------------------------------------------------------------------------------.
- * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | EXIT |
+ * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |ADJUST|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Del  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -171,7 +174,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_GAMING] = {
-  {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    EXT_GMG},
+  {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    ADJ    },
   {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_DEL },
   {KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
@@ -251,6 +254,7 @@ uint32_t layer_state_set_user(uint32_t state) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+/*eeconfig_init();*/
   switch (keycode) {
     case COLEMAK:
       if (record->event.pressed) {
@@ -260,15 +264,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     case PLOVER:
-      if (record->event.pressed) {
-        layer_off(_COLEMAK);
-	layer_off(_GAMING);
-	layer_off(_RAISE);
+        layer_off(_RAISE);
         layer_off(_LOWER);
-        layer_off(_ADJUST);
+		layer_off(_ADJUST);
         layer_on(_PLOVER);
-	set_single_persistent_default_layer(_PLOVER);
-	if (!eeconfig_is_enabled()) {
+      if (record->event.pressed) {
+	  if (!eeconfig_is_enabled()) {
             eeconfig_init();
         }
         keymap_config.raw = eeconfig_read_keymap();
@@ -277,28 +278,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case EXT_PLV:
-      if (record->event.pressed) {
-        layer_off(_PLOVER);
-        layer_on(_COLEMAK);
-	layer_on(_GAMING);
-	layer_on(_RAISE);
-	layer_on(_LOWER);
-	layer_on(_ADJUST);
-	set_single_persistent_default_layer(_COLEMAK);
-      }
-      return false;
-      break;
-    case GAMING:
-      if (record->event.pressed) {
-	set_single_persistent_default_layer(_GAMING);
-      }
-      return false;
-      break;
-    case EXT_GMG:
-      if (record->event.pressed) {
-	set_single_persistent_default_layer(_COLEMAK);
-      }
+    case ADJ:
+	if (record->event.pressed) {
+		layer_off(_PLOVER);
+	}
     case TFLIP:
       if (record->event.pressed) {
         //when keycode TFLIP is pressed
