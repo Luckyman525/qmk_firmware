@@ -41,7 +41,6 @@ enum olkb_keycodes {
   GAMING,
   EXT_PLV,
   EXT_GMG,
-  EEP_RES,
 };
 
 enum unicode_names {
@@ -62,7 +61,7 @@ const uint32_t PROGMEM unicode_map[] = {
 #define ENTALT MT(MOD_LALT, KC_ENT)
 #define UNICODE MO(_UNICODE)
 #define UCODE OSL(_UNICODE)
-#define ADJ DF()_ADJUST)
+#define ADJ DF(_ADJUST)
 #define GAMING DF(_GAMING)
 #define PLOVER DF(_PLOVER)
 #define SFT MOD_LSFT
@@ -228,7 +227,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
- * |EEPRES|      |      |      |      |      |      |      |      |      |      |      |
+ * |EEPRS|      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      | Reset| Debug|      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -240,7 +239,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = {
-  {EEP_RES, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+  {EEP_RST, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, RESET,   DEBUG,   _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
@@ -297,10 +296,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
       }
       break;
-    case EEP_RES:
-	  if (record->event.pressed)
-		eeconfig_init();
-	  break;
   }
   return true;
 };
